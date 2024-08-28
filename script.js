@@ -1,4 +1,3 @@
-// script.js
 document.getElementById('convertButton').addEventListener('click', function() {
     const imageInput = document.getElementById('imageInput');
     const formatSelect = document.getElementById('formatSelect');
@@ -7,37 +6,37 @@ document.getElementById('convertButton').addEventListener('click', function() {
     const context = canvas.getContext('2d');
 
     if (!imageInput.files.length) {
-        alert('Please select an image file.');
+        alert('Please select at least one image file.');
         return;
     }
 
-    const file = imageInput.files[0];
-    const reader = new FileReader();
+    Array.from(imageInput.files).forEach(file => {
+        const reader = new FileReader();
 
-    reader.onload = function(event) {
-        const img = new Image();
-        img.onload = function() {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            context.drawImage(img, 0, 0);
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                context.drawImage(img, 0, 0);
 
-            const selectedFormat = formatSelect.value;
-            const quality = parseInt(qualityRange.value) / 100;
+                const selectedFormat = formatSelect.value;
+                const quality = parseInt(qualityRange.value) / 100;
 
-            // Use quality parameter for JPEG and WEBP
-            let convertedImage;
-            if (selectedFormat === 'jpeg' || selectedFormat === 'webp') {
-                convertedImage = canvas.toDataURL('image/' + selectedFormat, quality);
-            } else {
-                convertedImage = canvas.toDataURL('image/' + selectedFormat);
-            }
+                let convertedImage;
+                if (selectedFormat === 'jpeg' || selectedFormat === 'webp') {
+                    convertedImage = canvas.toDataURL('image/' + selectedFormat, quality);
+                } else {
+                    convertedImage = canvas.toDataURL('image/' + selectedFormat);
+                }
 
-            downloadImage(convertedImage, file.name, selectedFormat);
+                downloadImage(convertedImage, file.name, selectedFormat);
+            };
+            img.src = event.target.result;
         };
-        img.src = event.target.result;
-    };
 
-    reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+    });
 });
 
 // Update quality value display

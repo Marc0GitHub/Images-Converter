@@ -8,8 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Image Converter</h1>
-        <input type="file" id="imageInput" accept="image/*">
+        <h1>Image Converter (no limit)</h1>
+        <input type="file" id="imageInput" accept="image/*" multiple>
         <select id="formatSelect">
             <option value="jpeg">JPEG</option>
             <option value="png">PNG</option>
@@ -21,6 +21,10 @@
         <button id="convertButton">Convert and Download</button>
         <canvas id="canvas" style="display: none;"></canvas>
     </div>
+    
+    <footer>
+        <p>made by <a href="https://github.com/Marc0GitHub" target="_blank">@marcotancredi</a></p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>

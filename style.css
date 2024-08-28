@@ -48,6 +48,14 @@ input[type="range"] {
     color: #c24d4d;
 }
 
+footer {
+    position: absolute;
+    bottom: 0;
+}
+
+footer a {
+    color: #0050ac;
+}
 
 @media screen and (max-width: 974px) {
     .container {
